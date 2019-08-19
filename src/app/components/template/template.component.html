@@ -1,0 +1,88 @@
+<h4>
+    Form <small>Template Validation</small></h4>
+<hr>
+<form (ngSubmit)="Save(form)" #form="ngForm" novalidate="">
+    <div>
+        <!-- Name -->
+        <div class="form-group row has-danger">
+            <label class="col-2 col-form-label">Name</label>
+            <div class="col-8">
+                <input class="form-control" type="text" placeholder="Name" name="name" [(ngModel)]="user.name" minlength="3" required #name="ngModel">
+                <div *ngIf="name.errors?.required && name.touched">
+                    This field is required
+                </div>
+                <div *ngIf="name.errors?.minlength && name.touched">
+                    Min length {{name.errors.minlength.requiredLength}}
+                </div>
+            </div>
+        </div>
+        <!--Last Name  -->
+        <div class="form-group row">
+            <label class="col-2 col-form-label">Last Name</label>
+            <div class="col-8">
+                <input class="form-control" type="text" placeholder="Last Name" name="lastName" [(ngModel)]="user.lastName" #last="ngModel" required>
+                <div *ngIf="last.errors?.required && last.touched">
+                    This field is required
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Email -->
+    <div class="form-group row">
+        <label class="col-2 col-form-label">Email</label>
+        <div class="col-md-8">
+            <input class="form-control" type="email" placeholder="Email" name="email" [(ngModel)]="user.email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" required #email="ngModel">
+            <div *ngIf="email.errors?.required && email.touched">
+                This field is required
+            </div>
+            <div *ngIf="email.errors?.pattern && email.touched">
+                Enter a valid email
+            </div>
+        </div>
+    </div>
+    <!-- Country -->
+    <div class="form-group row">
+        <label class="col-2 col-form-label">Country</label>
+        <div class="col-md-8">
+            <select [(ngModel)]="user.country" class="form-control" name="countries">         
+            <option value="">Select Country ... </option>  
+            <option *ngFor="let country of countries"
+                 [value]="country.code"> {{country.name}}</option>            
+            </select>
+        </div>
+    </div>
+    <!-- Gender -->
+    <div class="form-group row">
+        <label class="col-2 col-form-label">Country</label>
+        <div class="col-md-8">
+            <div class="custom-control custom-radio custom-control-inline">
+                <input [(ngModel)]="user.sex" type="radio" id="male" name="male" value="Male" class="custom-control-input">
+                <label class="custom-control-label" for="male">Male</label>
+            </div>
+            <div class="custom-control custom-radio custom-control-inline">
+                <input [(ngModel)]="user.sex" type="radio" id="female" name="Female" value="Female" class="custom-control-input">
+                <label class="custom-control-label" for="female">Female</label>
+            </div>
+        </div>
+    </div>
+    <!-- Terms and Conditions -->
+    <div class="form-group row">
+        <label class="col-12 col-form-label">Terms and Conditions</label>
+        <div class="col-md-8">
+            <div class="form-check">
+                <input [(ngModel)]="user.terms" name="term" required class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                <label class="form-check-label" for="defaultCheck1">
+                        Agree
+                    </label>
+            </div>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-2 col-form-label">&nbsp;</label>
+        <div class="input-group col-md-8">
+            <button [disabled]="!form.valid" type="submit" class="btn btn-outline-primary">
+        Save
+      </button>
+        </div>
+    </div>
+</form>
