@@ -35,7 +35,5 @@ export class TemplateComponent {
     console.log( "ngForm",form);
     console.log( "Value Form", form.value );
     console.log( "Usuario", this.user );
-
-
   }  
 }
