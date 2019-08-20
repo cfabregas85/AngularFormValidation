@@ -23,8 +23,8 @@ export class DataComponent  {
  }
 
   user:any  ={
-     name:"Carlos",
-     lastName:"Fabregas",
+     name:"Pedro",
+     lastName:"Rich",
      email:'example@gmail.com'
   }
 
