@@ -12,12 +12,15 @@ import {NgForm  } from "@angular/forms";
 })
 export class TemplateComponent {
 
+
+  successTempalteValidation:boolean = false;
+
   user:object = {
     name:null,
     lastName:null,
     email:null,
     country:"",
-    sex:"Male",
+    sex:"",
     terms: false
   }
 
@@ -35,5 +38,7 @@ export class TemplateComponent {
     console.log( "ngForm",form);
     console.log( "Value Form", form.value );
     console.log( "Usuario", this.user );
+    this.successTempalteValidation=true; 
+    form.reset();   
   }  
 }

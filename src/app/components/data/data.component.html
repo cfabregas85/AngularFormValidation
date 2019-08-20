@@ -1,38 +1,72 @@
 <h4>
-    Form <small>Data Validation</small></h4>
+    <small>Data Validation</small></h4>
 <hr>
-<form>
+<div *ngIf="success" class="alert alert-success" role="alert">
+    The Data Validation was Success!!
+</div>
+<form [formGroup]="form" (ngSubmit)="Save()">
     <div>
         <div class="form-group row">
             <label class="col-2 col-form-label">Name</label>
             <div class="col-8">
-
-                <input class="form-control" type="text" placeholder="Name">
+                <input class="form-control" type="text" placeholder="Name" formControlName="name">
+                <div *ngIf="form.controls['name'].errors?.required && form.controls['name'].touched">
+                    This field is required
+                </div>
+                <div *ngIf="form.controls['name'].errors?.minlength && form.touched">
+                    Min Length 2
+                </div>
+                <div *ngIf="form.controls['name'].errors?.noCarlos && form.touched">
+                    The Name can't be Carlos
+                </div>
             </div>
         </div>
-
         <div class="form-group row">
             <label class="col-2 col-form-label">Last name</label>
             <div class="col-8">
-
-                <input class="form-control" type="text" placeholder="Last name">
+                <input class="form-control" type="text" placeholder="Last name" formControlName="lastName">
+                <div *ngIf="form.controls['lastName'].errors?.required && form.touched">
+                    This field is required
+                </div>
             </div>
         </div>
     </div>
     <div class="form-group row">
         <label class="col-2 col-form-label">Email</label>
         <div class="col-md-8">
-
-            <input class="form-control" type="email" placeholder="Email">
+            <input class="form-control" type="email" placeholder="Email" formControlName="email">
+            <div *ngIf="form.controls['email'].errors?.required && form.touched">
+                This field is required
+            </div>
+            <div *ngIf="form.controls['email'].errors?.pattern && form.touched">
+                Please enter a valid email
+            </div>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-2 col-form-label">Password</label>
+        <div class="col-8">
+            <input class="form-control" type="password" placeholder="Password" formControlName="Password1">
+            <div *ngIf="form.controls['Password1'].errors?.required && form.touched">
+                Password is required
+            </div>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-2 col-form-label">Confirm Password</label>
+        <div class="col-8">
+            <input class="form-control" type="password" placeholder="Confirm" formControlName="Password2">
+            <div *ngIf="form.controls['Password2'].errors?.passValidator && form.touched">
+                Password does not match
+            </div>
         </div>
     </div>
     <div class="form-group row">
         <label class="col-2 col-form-label">&nbsp;</label>
         <div class="input-group col-md-8">
-            <button type="submit" class="btn btn-outline-primary">
+            <button [disabled]="!form.valid" type="submit" class="btn btn-outline-primary">
         Save
       </button>
         </div>
     </div>
-
 </form>
