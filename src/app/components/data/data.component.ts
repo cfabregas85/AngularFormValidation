@@ -51,7 +51,17 @@ export class DataComponent  {
         this.form.controls['Password2'].setValidators([
          Validators.required,
          this.passValidator.bind(this.form)
-     ])    
+     ])  
+     
+     // Get Form Changes
+      // this.form.valueChanges.subscribe( data=>{
+      //   console.log(data);
+      // })
+
+      // Get Field Changes
+      this.form.controls['username'].valueChanges.subscribe( data=>{
+        console.log(data);
+      })
    }
 
    // My Validations 
