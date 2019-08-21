@@ -44,6 +44,18 @@
         </div>
     </div>
     <div class="form-group row">
+        <label class="col-2 col-form-label">User</label>
+        <div class="col-8">
+            <input class="form-control" type="text" placeholder="username" formControlName="username">
+            <div *ngIf="form.controls['username'].errors?.required && form.touched">
+                This field is required
+            </div>
+            <div *ngIf="exist">
+                {{form.controls['email'].values}} exist already
+            </div>
+        </div>
+    </div>
+    <div class="form-group row">
         <label class="col-2 col-form-label">Password</label>
         <div class="col-8">
             <input class="form-control" type="password" placeholder="Password" formControlName="Password1">

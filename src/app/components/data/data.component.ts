@@ -1,5 +1,7 @@
 import { Component} from '@angular/core';
 import { FormGroup,FormControl, Validator, Validators } from "@angular/forms";
+import { Observable  } from "rxjs";
+
 
 @Component({
   selector: 'app-data',
@@ -13,6 +15,7 @@ import { FormGroup,FormControl, Validator, Validators } from "@angular/forms";
 export class DataComponent  {
 
   success:boolean = false;
+  public exist:boolean= false;
 
   newUser:any  ={
     name:"",
@@ -40,6 +43,7 @@ export class DataComponent  {
       'email':new FormControl('',[Validators.required,
                                    Validators.pattern("[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$")
                                   ]),
+       'username':new FormControl('',Validators.required, this.userExist.bind(this.form)),
        'Password1':new FormControl('',Validators.required),
        'Password2':new FormControl()
     })
@@ -67,6 +71,27 @@ export class DataComponent  {
         }       
         return null;
    }
+
+   //Async Validation
+
+   public userExist(control:FormControl):Promise<any>|Observable<any>{
+     let exist:any = this;
+     let prom = new Promise((resolve,reject)=>{
+       setTimeout(()=>{
+         if (control.value === "example") {
+           resolve({existe:true})
+           exist = true;
+         }
+         else{
+           resolve(null)
+         }
+       },3000)      
+     }
+    )
+    return prom;
+   }
+
+
 
    Save(){
      console.log(this.form.value);
